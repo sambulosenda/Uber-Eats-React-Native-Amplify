@@ -114,7 +114,7 @@
   "minDeliveryTime": 30,
   "maxDeliveryTime": 40,
   "rating": 4.5,
-  "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant4.jpeg",
+  "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant3.jpeg",
   "dishes": [
     {
       "name": "English burger",

@@ -12,16 +12,13 @@ import RestaurantDetailsPage from './src/screens/RestaurantDetailsPage';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation';
 
-
-
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
-Amplify.configure(awsconfig);
+Amplify.configure({ ...awsconfig, Analytics: { disabled: true } });
 
-import { withAuthenticator } from "aws-amplify-react-native";
+import { withAuthenticator } from 'aws-amplify-react-native';
 
-
- function App() {
+function App() {
   return (
     <NavigationContainer>
       <RootNavigator />

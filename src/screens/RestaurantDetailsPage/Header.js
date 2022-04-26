@@ -7,14 +7,16 @@ import DishListItem from "../../components/DishListItem";
 const restaurant = restaurants[0];
 
 const Header = () => {
+
+  const DEFAULT_IMAGE = "https://www.gstatic.com/webp/gallery/1.jpg";
   return (
     <View style={styles.page}>
-      <Image source={{ uri: restaurant.image }} style={styles.image} />
+      <Image source={{ uri: restaurant.image.startsWith("https") ? restaurant.image: DEFAULT_IMAGE, }} style={styles.image} />
 
       <View style={styles.container}>
         <Text style={styles.title}>{restaurant.name}</Text>
         <Text style={styles.subTitle}>
-          $ {restaurant.deliveryFee} {restaurant.minDeliveryTime}-
+          $ {restaurant.deliveryFee.toFixed(1)} {restaurant.minDeliveryTime}-
           {restaurant.maxDeliveryTime} minutes
         </Text>
       </View>

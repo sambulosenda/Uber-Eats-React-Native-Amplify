@@ -5,16 +5,18 @@ import { useNavigation } from '@react-navigation/native';
 const RestaurentItem = ({ restaurant }) => {
   const navigation = useNavigation();
 
+  const DEFAULT_IMAGE = "https://www.gstatic.com/webp/gallery/1.jpg";
   // allows to send the restaurant object to the next screen
   const onPress = () => {
     navigation.navigate('Restaurant', { id: restaurant.id });
   };
 
+
   return (
     <Pressable onPress={onPress} style={styles.restuarentContainer}>
       <Image
         source={{
-          uri: restaurant.image,
+          uri: restaurant.image.startsWith('http') ? restaurant.image : DEFAULT_IMAGE,
         }}
         style={styles.image}
       />
@@ -24,7 +26,7 @@ const RestaurentItem = ({ restaurant }) => {
         <View>
           <Text style={styles.title}>{restaurant.name}</Text>
           <Text style={styles.subTitle}>
-            $ {restaurant.deliveryFee} {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime}{' '}
+            $ {restaurant.delieveryFee.toFixed(1)} {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime}{' '}
             minutes
           </Text>
         </View>
