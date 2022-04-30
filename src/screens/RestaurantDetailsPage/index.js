@@ -7,39 +7,42 @@ import DishListItem from '../../components/DishListItem';
 import Header from './Header';
 
 import { DataStore } from 'aws-amplify';
-import { Restaurant } from '../../models';
+import { Restaurant, Dish } from '../../models';
 
 function RestaurantDetailsPage() {
   const [restaurant, setRestaurant] = useState(null);
+  const [dishes, setDishes] = useState([]);
 
   // contains details from the previous screens
   const route = useRoute();
   const navigation = useNavigation();
 
-  const  id  = route.params?.id;
+  const id = route.params?.id;
 
- 
   const fetchRestaurant = async () => {
-    const result = await DataStore.query(Restaurant, id);
-    setRestaurant(result);
+    if (id) {
+      const result = await DataStore.query(Restaurant, id);
+      setRestaurant(result);
+
+      const dishResult = await DataStore.query(Dish, (dish) => dish.restaurantID('eq', id));
+      setDishes(dishResult);
+    }
   };
 
   useEffect(() => {
-    fetchRestaurant()
-  }, []);
-
-
+    fetchRestaurant();
+  }, [id]);
 
   if (!restaurant) {
     return <ActivityIndicator size={'large'} color="red" />;
   }
-  
-  console.log(restaurant)
+
+  console.log(restaurant);
   return (
     <View View style={styles.page}>
       <FlatList
         ListHeaderComponent={() => <Header restaurant={restaurant} />}
-        data={restaurant.dishes}
+        data={dishes}
         renderItem={({ item }) => <DishListItem dish={item} />}
         keyExtractor={(item) => item.name}
       />
