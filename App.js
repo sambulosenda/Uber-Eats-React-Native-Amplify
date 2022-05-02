@@ -17,11 +17,14 @@ import awsconfig from './src/aws-exports';
 Amplify.configure({ ...awsconfig, Analytics: { disabled: true } });
 
 import { withAuthenticator } from 'aws-amplify-react-native';
+import AuthContextProvider from './src/context/AuthContext';
 
 function App() {
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <AuthContextProvider>
+        <RootNavigator />
+      </AuthContextProvider>
     </NavigationContainer>
   );
 }

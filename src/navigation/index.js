@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/HomeScreen';
 import RestaurantDetailsPage from '../screens/RestaurantDetailsPage';
@@ -13,13 +13,22 @@ import { MaterialIcons } from '@expo/vector-icons';
 import DishDetailsScreen from '../screens/DishDetailsScreen';
 import Basket from '../screens/Basket';
 import Profile from '../screens/ProfileScreen';
+import { useAuthContext } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+
+  //Takes f
+  const { dbUser } = useAuthContext();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MyTabs" component={MyTabs} />
+      {dbUser ? (
+        <Stack.Screen name="MyTabs" component={MyTabs} />
+      ) : (
+        <Stack.Screen name="Profile" component={Profile} />
+      )}
     </Stack.Navigator>
   );
 };
@@ -28,7 +37,7 @@ const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false }}  barStyle={{ backgroundColor: 'white' }}>
+    <Tab.Navigator screenOptions={{ headerShown: false }} barStyle={{ backgroundColor: 'white' }}>
       <Tab.Screen
         name="Home"
         component={HomeStackNavigator}
@@ -56,11 +65,13 @@ const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="Restaurants" component={HomeScreen} />
-      <HomeStack.Screen name="Restaurant" component={RestaurantDetailsPage}  options={{headerShown: false}}/>
+      <HomeStack.Screen
+        name="Restaurant"
+        component={RestaurantDetailsPage}
+        options={{ headerShown: false }}
+      />
       <HomeStack.Screen name="Dish" component={DishDetailsScreen} />
       <HomeStack.Screen name="Dasket" component={Basket} />
-
-
     </HomeStack.Navigator>
   );
 };
