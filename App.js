@@ -18,12 +18,15 @@ Amplify.configure({ ...awsconfig, Analytics: { disabled: true } });
 
 import { withAuthenticator } from 'aws-amplify-react-native';
 import AuthContextProvider from './src/context/AuthContext';
+import BasketContextProvider from './src/context/BasketContext';
 
 function App() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <RootNavigator />
+        <BasketContextProvider>
+          <RootNavigator />
+        </BasketContextProvider>
       </AuthContextProvider>
     </NavigationContainer>
   );

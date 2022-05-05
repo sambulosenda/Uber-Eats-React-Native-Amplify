@@ -7,6 +7,7 @@ import { Dish } from '../../models';
 
 import restaurants from '../../../assets/data/restaurants.json';
 import { ActivityIndicator } from 'react-native-paper';
+import { useBasketContext } from '../../context/BasketContext';
 const dish = restaurants[0].dishes[0];
 
 const DishDetailsScreen = () => {
@@ -17,9 +18,17 @@ const DishDetailsScreen = () => {
   const route = useRoute();
   const id = route.params?.id;
 
+
+  const { addDishToBacket } = useBasketContext();
+
   useEffect(() => {
     DataStore.query(Dish, id).then(setDish);
-  }, []);
+  }, [id]);
+
+  const onAddToBasket = async () => {
+    await addDishToBacket(dish, quantity);
+    navigation.goBack();
+  };
 
   const onMinus = () => {
     if (quantity > 1) {
@@ -46,11 +55,11 @@ const DishDetailsScreen = () => {
 
       <View style={styles.row}>
         <AntDesign name="minuscircleo" size={60} color={'black'} onPress={onMinus} />
-        <Text style={styles.quantity}>{quantity}</Text>
+        <Text style={styles.quantity}>{quantity.toFixed}</Text>
         <AntDesign name="pluscircleo" size={60} color={'black'} onPress={onPlus} />
       </View>
 
-      <Pressable onPress={() => navigation.navigate('Basket')} style={styles.button}>
+      <Pressable  style={styles.button} onPress={onAddToBasket}>
         <Text style={styles.buttonText}>
           Add {quantity} to basket &#8226; ${getTotal()}
         </Text>

@@ -13,7 +13,7 @@ export const schema = {
                 "quantity": {
                     "name": "quantity",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -317,7 +317,7 @@ export const schema = {
                 "quantity": {
                     "name": "quantity",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -770,5 +770,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "05b9360449feff3662bb7f50c65e1b8e"
+    "version": "4f5ac682a12c08ce362285dc8f391654"
 };

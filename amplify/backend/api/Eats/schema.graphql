@@ -1,6 +1,6 @@
 type BasketDish @model @auth(rules: [{allow: public}]) {
   id: ID!
-  quantity: String
+  quantity: Int
   basketID: ID! @index(name: "byBasket")
   Dish: Dish @hasOne
 }
@@ -23,7 +23,7 @@ type Order @model @auth(rules: [{allow: public}]) {
 
 type OrderDish @model @auth(rules: [{allow: public}]) {
   id: ID!
-  quantity: String
+  quantity: Int
   orderID: ID! @index(name: "byOrder")
   Dish: Dish @hasOne
 }

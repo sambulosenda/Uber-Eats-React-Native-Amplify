@@ -71,7 +71,7 @@ const HomeStackNavigator = () => {
         options={{ headerShown: false }}
       />
       <HomeStack.Screen name="Dish" component={DishDetailsScreen} />
-      <HomeStack.Screen name="Dasket" component={Basket} />
+      <HomeStack.Screen name="Basket" component={Basket} />
     </HomeStack.Navigator>
   );
 };

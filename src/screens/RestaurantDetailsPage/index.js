@@ -1,13 +1,22 @@
-import { View, Text, Image, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Pressable,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation, NavigationHelpersContext } from '@react-navigation/native';
 import DishListItem from '../../components/DishListItem';
 import Header from './Header';
 
 import { DataStore } from 'aws-amplify';
 import { Restaurant, Dish } from '../../models';
+import { useBasketContext } from '../../context/BasketContext';
 
 function RestaurantDetailsPage() {
   const [restaurant, setRestaurant] = useState(null);
@@ -18,6 +27,8 @@ function RestaurantDetailsPage() {
   const navigation = useNavigation();
 
   const id = route.params?.id;
+
+  const { setRestaurant: setBasketRestaurant, basket } = useBasketContext();
 
   const fetchRestaurant = async () => {
     if (id) {
@@ -30,8 +41,13 @@ function RestaurantDetailsPage() {
   };
 
   useEffect(() => {
+    setBasketRestaurant(null);
     fetchRestaurant();
   }, [id]);
+
+  useEffect(() => {
+    setBasketRestaurant(restaurant);
+  }, [restaurant]);
 
   if (!restaurant) {
     return <ActivityIndicator size={'large'} color="red" />;
@@ -53,6 +69,11 @@ function RestaurantDetailsPage() {
         color="white"
         style={styles.iconContainer}
       />
+      {basket && (
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Basket')}>
+          <Text style={styles.buttonText}>View Basket </Text>
+        </Pressable>
+      )}
     </View>
   );
 }
@@ -84,6 +105,17 @@ const styles = StyleSheet.create({
     left: 10,
     height: 50,
     width: 50,
+  },
+  button: {
+    backgroundColor: 'black',
+    marginTop: 'auto',
+    padding: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 18,
   },
 });
 

@@ -40,7 +40,7 @@ type UserMetaData = {
 
 export declare class BasketDish {
   readonly id: string;
-  readonly quantity?: string | null;
+  readonly quantity?: number | null;
   readonly basketID: string;
   readonly Dish?: Dish | null;
   readonly createdAt?: string | null;
@@ -78,7 +78,7 @@ export declare class Order {
 
 export declare class OrderDish {
   readonly id: string;
-  readonly quantity?: string | null;
+  readonly quantity?: number | null;
   readonly orderID: string;
   readonly Dish?: Dish | null;
   readonly createdAt?: string | null;
