@@ -28,7 +28,7 @@ function RestaurantDetailsPage() {
 
   const id = route.params?.id;
 
-  const { setRestaurant: setBasketRestaurant, basket } = useBasketContext();
+  const { setRestaurant: setBasketRestaurant, basket, basketDishes } = useBasketContext();
 
   const fetchRestaurant = async () => {
     if (id) {
@@ -71,7 +71,7 @@ function RestaurantDetailsPage() {
       />
       {basket && (
         <Pressable style={styles.button} onPress={() => navigation.navigate('Basket')}>
-          <Text style={styles.buttonText}>View Basket </Text>
+          <Text style={styles.buttonText}>View Basket ({basketDishes.length}) </Text>
         </Pressable>
       )}
     </View>

@@ -2,21 +2,17 @@ import { View, Text, Image, StyleSheet, FlatList } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import restaurants from "../../../assets/data/restaurants.json";
-import DishListItem from "../../components/DishListItem";
-const restaurant = restaurants[0];
+const DEFAULT_IMAGE = "https://www.gstatic.com/webp/gallery/1.jpg";
 
-const Header = () => {
+const Header = ({restaurant}) => {
 
-  const DEFAULT_IMAGE = "https://www.gstatic.com/webp/gallery/1.jpg";
   return (
     <View style={styles.page}>
       <Image source={{ uri: restaurant.image.startsWith("https") ? restaurant.image: DEFAULT_IMAGE, }} style={styles.image} />
-
       <View style={styles.container}>
         <Text style={styles.title}>{restaurant.name}</Text>
         <Text style={styles.subTitle}>
-          $ {restaurant.deliveryFee.toFixed(1)} {restaurant.minDeliveryTime}-
+          $ {restaurant.delieveryFee.toFixed(1)} {restaurant.minDeliveryTime}-
           {restaurant.maxDeliveryTime} minutes
         </Text>
       </View>
