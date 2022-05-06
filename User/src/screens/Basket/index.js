@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-import restaurants from '../../../assets/data/restaurants.json';
 import BasketDishItem from '../../components/BasketDishItem';
 import { useBasketContext } from "../../context/BasketContext";
 
